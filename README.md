@@ -70,3 +70,142 @@ stock-price-tracker/
 ## Troubleshooting
 - Ensure MongoDB is running and accessible.
 - Check console logs for any errors during startup or runtime.
+
+# Stock Price Tracker
+
+## Overview
+This repository contains both the backend and frontend components for the Stock Price Tracker application.
+
+## Backend
+
+### Overview
+This is the backend service for the Stock Price Tracker application. It fetches real-time data for specified stocks or cryptocurrencies and stores them in a MongoDB database.
+
+### Features
+- Poll real-time data for multiple stocks or cryptocurrencies.
+- Store the fetched data in MongoDB.
+- Provide an API to fetch the most recent 20 entries for a specific stock or cryptocurrency.
+
+### Technologies Used
+- Node.js
+- Express
+- Mongoose
+- Axios
+- TypeScript
+
+### Prerequisites
+- Node.js (version 14.x or higher)
+- MongoDB (local or remote)
+
+### Setup
+
+1. **Navigate to the backend directory:**
+    ```bash
+    cd backend
+    ```
+
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3. **Set up MongoDB:**
+    - Ensure MongoDB is running locally or have a MongoDB URI for a remote database.
+    - Update the `MONGO_URI` in `src/app.ts` with your MongoDB connection string.
+
+4. **Compile TypeScript:**
+    ```bash
+    npx tsc
+    ```
+
+5. **Run the server:**
+    ```bash
+    node dist/server.js
+    ```
+
+### API Endpoints
+
+- **Fetch the most recent 20 entries for a specific stock:**
+  - `GET /api/stocks/:symbol`
+  - Example: `GET /api/stocks/BTC`
+
+## Frontend
+
+### Overview
+This is the frontend application for the Stock Price Tracker. It fetches and displays real-time data for specified stocks or cryptocurrencies from the backend API.
+
+### Features
+- Fetch real-time stock or cryptocurrency data.
+- Display the data in a dynamic table.
+- Allow switching between different stocks or cryptocurrencies.
+
+### Technologies Used
+- Next.js
+- React
+- Redux Toolkit
+- TypeScript
+- Axios
+
+### Prerequisites
+- Node.js (version 14.x or higher)
+
+### Setup
+
+1. **Navigate to the frontend directory:**
+    ```bash
+    cd frontend
+    ```
+
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3. **Configure API Proxy:**
+    Ensure the `next.config.js` file is set up to proxy API requests to the backend:
+    ```javascript
+    module.exports = {
+      async rewrites() {
+        return [
+          {
+            source: '/api/:path*',
+            destination: 'http://localhost:5000/api/:path*', // Proxy to Backend
+          },
+        ];
+      },
+    };
+    ```
+
+4. **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+### Usage
+- Open your browser and navigate to `http://localhost:3000`.
+- Use the dropdown to switch between different stocks or cryptocurrencies.
+- The table will display and update the most recent 20 entries for the selected symbol.
+
+## Directory Structure
+stock-price-tracker/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── features/
+│   │   ├── pages/
+│   │   ├── store/
+│   │   ├── styles/
+│   ├── next.config.js
+│   ├── package.json
+│   ├── tsconfig.json
+├── backend/
+│   ├── src/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── app.ts
+│   │   ├── server.ts
+│   ├── package.json
+│   ├── tsconfig.json
+├── README.md
+
